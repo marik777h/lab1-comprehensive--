@@ -1,3 +1,4 @@
+# Shared formatting rules for all repository files.
 root = true
 
 [*]
