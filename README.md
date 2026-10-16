@@ -1,29 +1,78 @@
-# Лабораторная работа №1
+# Расчёт корзины и скидок
 
-Комплексный анализ, настройка инфраструктуры и контроль качества ПО.
-Микросервис расчёта корзины и скидок системы лояльности.
+Лабораторная работа №1 по моделированию и анализу программного обеспечения:
+выбор СУБД, управление изменениями, автоматический контроль качества
+и обратное проектирование алгоритма системы лояльности.
 
-**[Открыть итоговый отчёт в develop](https://github.com/marik777h/lab1-comprehensive--/blob/develop/REPORT.md)**
+**[Итоговый отчёт](https://github.com/marik777h/lab1-comprehensive--/blob/develop/REPORT.md)**
+· [Проверка требований](https://github.com/marik777h/lab1-comprehensive--/blob/develop/docs/requirements-checklist.md)
+· [Код](https://github.com/marik777h/lab1-comprehensive--/blob/develop/src/discount.py)
+· [Открытый PR с планом ревью](https://github.com/marik777h/lab1-comprehensive--/pull/3)
 
-Основная работа находится в ветке
-[develop](https://github.com/marik777h/lab1-comprehensive--/tree/develop).
-Отчёт содержит матрицу выбора СУБД, ссылки на коммиты и PR,
-скриншоты защиты ветки и проверки CI, UML и анализ legacy-кода.
+## Что реализовано
 
-- [PR №1 — инфраструктура](https://github.com/marik777h/lab1-comprehensive--/pull/1), слит.
-- [PR №2 — QA и код](https://github.com/marik777h/lab1-comprehensive--/pull/2), слит; CI прошёл после намеренной ошибки.
-- [PR №3 — план ревью и UML](https://github.com/marik777h/lab1-comprehensive--/pull/3), **оставлен открытым по заданию**.
+| Область | Результат |
+| --- | --- |
+| Выбор СУБД | PostgreSQL 4.75, MongoDB 3.65; сумма весов 1.00 |
+| Расчёт | Decimal, валидация, скидки SUMMER/VIP, tier 0/1/2, лимит 30% |
+| Тесты | 12 методов, включая 1000 воспроизводимых сценариев с точным эталоном |
+| Контроль качества | flake8, тесты, coverage 100%; минимальный порог CI 95% |
+| Инфраструктура | EditorConfig, CODEOWNERS, защищённая develop, изменения через PR |
+| Документация | Отчёт, реальные скриншоты GitHub, UML PNG и исходник diagrams.net |
 
-## Проверка кода
+Основная работа находится в **develop**. PR №3 необходимо оставить
+открытым по заданию. Зелёный CI не заменяет независимое code-review.
 
-Выполнить после переключения на develop, используя Python 3.12:
+## Запустить все проверки
+
+Требуется Python 3.12. Рабочий модуль использует только стандартную
+библиотеку; внешние зависимости нужны для проверки качества.
 
 ```bash
-python -m pip install flake8==7.4.1 coverage==7.16.2
-python -m flake8 .
-python -m coverage run --branch --source=src -m unittest discover -s tests -v
-python -m coverage report -m --fail-under=81
+git switch develop
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python scripts/check.py
 ```
 
-Текущий результат: lint без ошибок, все 7 тестовых методов проходят,
-покрытие строк и ветвлений src — 100%.
+В Windows вместо `source` активируйте среду командой
+`.venv\Scripts\Activate.ps1` в PowerShell. Если репозиторий ещё не скачан:
+`git clone https://github.com/marik777h/lab1-comprehensive--.git`.
+Затем перейдите в созданную папку и выполните команды выше.
+
+`scripts/check.py` последовательно запускает линтер, тесты и контроль
+покрытия. При первой ошибке возвращает ненулевой код. GitHub Actions
+использует тот же скрипт и тот же файл зафиксированных зависимостей.
+
+## Пример расчёта
+
+```python
+from src.discount import calculate_cart_total
+
+calculate_cart_total(10000, 0, ["SUMMER", "VIP"])  # Decimal('8550.00')
+calculate_cart_total(10000, 0, ["VIP", "SUMMER"])  # Decimal('8500.00')
+calculate_cart_total(20000, 2, ["SUMMER", "VIP"])  # Decimal('14000.00')
+```
+
+Порядок промокодов влияет на результат и сохранён из legacy-кода.
+Повторные коды применяются повторно, неизвестные игнорируются. Это
+учебная совместимость, а не реализация проверки права на промокод.
+
+Сумма — конечное неотрицательное `int`, `float` или `Decimal`, максимум
+999999999999.99; `bool` запрещён. Промокоды — список или кортеж строк.
+Результат — Decimal с двумя знаками, ROUND_HALF_UP в конце расчёта.
+Ошибочный тип вызывает TypeError, значение вне контракта — ValueError.
+Для точной передачи денежных входов предпочтителен Decimal, для JSON
+результат можно передать строкой: `str(total)`.
+
+## Доказательства и артефакты
+
+- [Защита develop](https://github.com/marik777h/lab1-comprehensive--/rules/25237735): PR обязателен, удаление и force push запрещены.
+- [PR №2](https://github.com/marik777h/lab1-comprehensive--/pull/2): реальная ошибка линтера, затем исправление и успешные проверки.
+- [Красный CI](https://github.com/marik777h/lab1-comprehensive--/actions/runs/38903539783) → [зелёный CI](https://github.com/marik777h/lab1-comprehensive--/actions/runs/38903714066).
+- [UML PNG](https://github.com/marik777h/lab1-comprehensive--/blob/develop/docs/uml_diagram.png) и [редактируемый .drawio](https://github.com/marik777h/lab1-comprehensive--/blob/develop/docs/uml_diagram.drawio).
+- [План ревью](https://github.com/marik777h/lab1-comprehensive--/blob/feature/review-plan/docs/review-plan.md) находится в незакрытом PR №3.
+
+Репозиторий публичный. Перед сдачей требуется добавить фамилию автора
+в его название; независимое одобрение может дать только второй участник.
