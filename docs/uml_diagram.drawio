@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" version="24.7.17">
+  <diagram name="Legacy discount activity">
+    <mxGraphModel page="1" pageWidth="1600" pageHeight="3020" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" value="" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;ellipse;fillColor=#263b50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785.0" y="135.0" width="30" height="30" />
+        </mxCell>
+        <mxCell id="init" value="price = cart_sum" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="575.0" y="210.0" width="450" height="80" />
+        </mxCell>
+        <mxCell id="base" value="cart_sum &gt; 15000?" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600.0" y="355.0" width="400" height="150" />
+        </mxCell>
+        <mxCell id="base_discount" value="price = cart_sum * 0.85" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1045.0" y="515.0" width="390" height="90" />
+        </mxCell>
+        <mxCell id="base_merge" value="" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780.0" y="660.0" width="40" height="40" />
+        </mxCell>
+        <mxCell id="loop" value="Есть следующий&#10;p в promos?" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600.0" y="775.0" width="400" height="150" />
+        </mxCell>
+        <mxCell id="summer" value="p == &quot;SUMMER&quot;?" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="620.0" y="1000.0" width="360" height="140" />
+        </mxCell>
+        <mxCell id="summer_discount" value="price = price - 500" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="230.0" y="1165.0" width="340" height="90" />
+        </mxCell>
+        <mxCell id="vip" value="p == &quot;VIP&quot;?" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="635.0" y="1230.0" width="330" height="140" />
+        </mxCell>
+        <mxCell id="vip_discount" value="price = price * 0.90" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1055.0" y="1395.0" width="370" height="90" />
+        </mxCell>
+        <mxCell id="promo_merge" value="" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780.0" y="1570.0" width="40" height="40" />
+        </mxCell>
+        <mxCell id="tier1" value="tier == 1?" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="640.0" y="1770.0" width="320" height="140" />
+        </mxCell>
+        <mxCell id="tier1_discount" value="price = price * 0.97" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="215.0" y="1935.0" width="370" height="90" />
+        </mxCell>
+        <mxCell id="tier2" value="tier == 2?" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="640.0" y="2010.0" width="320" height="140" />
+        </mxCell>
+        <mxCell id="tier2_discount" value="price = price * 0.93" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1055.0" y="2175.0" width="370" height="90" />
+        </mxCell>
+        <mxCell id="tier_merge" value="" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780.0" y="2340.0" width="40" height="40" />
+        </mxCell>
+        <mxCell id="cap" value="price &lt;&#10;cart_sum * 0.70?" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="590.0" y="2435.0" width="420" height="150" />
+        </mxCell>
+        <mxCell id="cap_price" value="price = cart_sum * 0.70" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="195.0" y="2615.0" width="410" height="90" />
+        </mxCell>
+        <mxCell id="cap_merge" value="" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rhombus;fillColor=#fff7df;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780.0" y="2760.0" width="40" height="40" />
+        </mxCell>
+        <mxCell id="return" value="return price" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;rounded=1;fillColor=#edf4fa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="640.0" y="2825.0" width="320" height="70" />
+        </mxCell>
+        <mxCell id="end" value="" style="whiteSpace=wrap;html=0;fontSize=26;strokeColor=#263b50;shape=doubleEllipse;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780.0" y="2930.0" width="40" height="40" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="start" target="init">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="init" target="base">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" value="да" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="base" target="base_discount">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1240" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="base" target="base_merge">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="base_discount" target="base_merge">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1240" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="base_merge" target="loop">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" value="да" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="loop" target="summer">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" value="да" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="summer" target="summer_discount">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="1070" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="summer" target="vip">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" value="да" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="vip" target="vip_discount">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1240" y="1300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="vip" target="promo_merge">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="summer_discount" target="promo_merge">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="1590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="vip_discount" target="promo_merge">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1240" y="1590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" value="следующая итерация" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="promo_merge" target="loop">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="800" y="1660" />
+              <mxPoint x="150" y="1660" />
+              <mxPoint x="150" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="loop" target="tier1">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1500" y="850" />
+              <mxPoint x="1500" y="1720" />
+              <mxPoint x="800" y="1720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" value="да" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="tier1" target="tier1_discount">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="1840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="tier1" target="tier2">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e18" value="да" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="tier2" target="tier2_discount">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1240" y="2080" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="tier2" target="tier_merge">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="tier1_discount" target="tier_merge">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="2360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="tier2_discount" target="tier_merge">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1240" y="2360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="tier_merge" target="cap">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e23" value="да" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="cap" target="cap_price">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="2510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e24" value="нет" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="cap" target="cap_merge">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="cap_price" target="cap_merge">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="2780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="cap_merge" target="return">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;fontSize=22;" edge="1" parent="1" source="return" target="end">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
