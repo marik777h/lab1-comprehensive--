@@ -1,0 +1,6 @@
+# Exact versions for local verification and GitHub Actions.
+flake8==7.4.1
+coverage==7.16.2
+mccabe==0.7.0
+pycodestyle==2.15.0
+pyflakes==4.0.3

@@ -1,6 +1,8 @@
 """Business rules, input validation and money precision regression tests."""
 
 from decimal import Decimal, ROUND_DOWN, ROUND_HALF_UP, localcontext
+from fractions import Fraction
+import random
 import unittest
 
 from src.discount import calculate_cart_total
@@ -94,6 +96,80 @@ class DiscountTests(unittest.TestCase):
                         )
                         self.assertGreaterEqual(result, lower)
                         self.assertLessEqual(result, upper)
+
+    def test_caller_decimal_traps_do_not_change_result(self):
+        with localcontext() as context:
+            for signal in context.traps:
+                context.traps[signal] = True
+            before_traps = dict(context.traps)
+            before_flags = dict(context.flags)
+            self.assertEqual(
+                calculate_cart_total(Decimal("15000.01"), 0, []),
+                Decimal("12750.01"),
+            )
+            self.assertEqual(dict(context.traps), before_traps)
+            self.assertEqual(dict(context.flags), before_flags)
+
+    def test_caller_exponent_limits_do_not_change_result(self):
+        with localcontext() as context:
+            context.prec = 3
+            context.Emax = 2
+            context.Emin = -2
+            self.assertEqual(
+                calculate_cart_total(Decimal("999999999999.99"), 0, []),
+                Decimal("849999999999.99"),
+            )
+            self.assertEqual((context.prec, context.Emax, context.Emin),
+                             (3, 2, -2))
+
+    def test_1000_scenarios_against_exact_fraction_oracle(self):
+        rng = random.Random(20261017)
+        codes = ["SUMMER", "VIP", "UNKNOWN"]
+        for case in range(1000):
+            amount = Decimal(rng.randrange(100000001)).scaleb(-3)
+            tier = rng.randrange(3)
+            promos = [rng.choice(codes) for _ in range(rng.randrange(13))]
+            original = Fraction(amount)
+            price = original
+            if original > 15000:
+                price *= Fraction(85, 100)
+            for promo in promos:
+                if promo == "SUMMER":
+                    price -= 500
+                elif promo == "VIP":
+                    price *= Fraction(90, 100)
+            price *= [Fraction(1), Fraction(97, 100),
+                      Fraction(93, 100)][tier]
+            price = max(price, original * Fraction(70, 100))
+            scaled = price * 100
+            # Exact ROUND_HALF_UP for nonnegative rational values.
+            cents = (2 * scaled.numerator + scaled.denominator) // (
+                2 * scaled.denominator
+            )
+            expected = Decimal(cents).scaleb(-2)
+            with self.subTest(case=case, amount=amount,
+                              tier=tier, promos=promos):
+                self.assertEqual(
+                    calculate_cart_total(amount, tier, promos), expected
+                )
+
+    def test_input_promo_list_is_not_mutated(self):
+        promos = ["SUMMER", "VIP", "UNKNOWN", "SUMMER"]
+        before = promos.copy()
+        first = calculate_cart_total(10000, 1, promos)
+        self.assertEqual(promos, before)
+        self.assertEqual(calculate_cart_total(10000, 1, promos), first)
+
+    def test_validation_failure_preserves_caller_context(self):
+        with localcontext() as context:
+            context.prec = 3
+            before_flags = dict(context.flags)
+            before_traps = dict(context.traps)
+            with self.assertRaises(ValueError):
+                calculate_cart_total(-1, 0, [])
+            self.assertEqual(context.prec, 3)
+            self.assertEqual(dict(context.flags), before_flags)
+            self.assertEqual(dict(context.traps), before_traps)
 
 
 if __name__ == "__main__":
