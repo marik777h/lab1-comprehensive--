@@ -1,6 +1,6 @@
 """Cart discounts with decimal arithmetic and explicit input validation."""
 
-from decimal import Decimal, ROUND_HALF_UP, localcontext
+from decimal import Context, Decimal, ROUND_HALF_UP, localcontext
 
 
 BASE_DISCOUNT_THRESHOLD = Decimal("15000")
@@ -15,9 +15,14 @@ TIER_PRICE_FACTORS = {
 MINIMUM_PRICE_FACTOR = Decimal("0.70")
 MONEY_QUANTUM = Decimal("0.01")
 MAX_CART_SUM = Decimal("999999999999.99")
+CALCULATION_PRECISION = 40
 
 
-def calculate_cart_total(cart_sum, tier, promos):
+def calculate_cart_total(
+    cart_sum: int | float | Decimal,
+    tier: int,
+    promos: list[str] | tuple[str, ...],
+) -> Decimal:
     """Return a Decimal rounded to cents, preserving legacy discount order.
 
     Accept a finite nonnegative int, float or Decimal up to MAX_CART_SUM,
@@ -41,10 +46,10 @@ def calculate_cart_total(cart_sum, tier, promos):
     if any(not isinstance(promo, str) for promo in promos):
         raise TypeError("each promo must be a string")
 
-    # Keep calculations independent of the caller's Decimal context.
-    with localcontext() as context:
-        context.prec = 40
-        context.rounding = ROUND_HALF_UP
+    # A fresh context also isolates traps and exponent limits, not just prec.
+    with localcontext(Context(
+        prec=CALCULATION_PRECISION, rounding=ROUND_HALF_UP
+    )):
         price = amount
         if amount > BASE_DISCOUNT_THRESHOLD:
             price *= BASE_PRICE_FACTOR
