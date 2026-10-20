@@ -7,9 +7,8 @@
 | Лабораторная №1 | [Отчёт в develop](https://github.com/marik777h/lab1-comprehensive--/blob/develop/REPORT.md) | Репозиторий и открытый PR №3 с планом ревью |
 | Практическое занятие №7 | [Отчёт](REPORT_PRACTICE_7.md), [DFA](docs/dfa_analysis.md), [ассемблер](docs/disassembly_analysis.md), [деобфускация](docs/deobfuscation.md) | [PR №7](https://github.com/marik777h/lab1-comprehensive--/pull/7), feature/practice-7 → develop |
 
-В ветке практики №7 также добавлены исправленный модуль транзакций,
-восемь тестов и отдельный Linter Check. Полный набор: 20 тестовых методов,
-покрытие src 100%. PR №7 оставлен открытым для проверки преподавателем.
+Материалы практики №7 находятся в ветке feature/practice-7.
+PR №7 оставлен открытым для проверки преподавателем.
 
 ## Лабораторная работа №1
 
